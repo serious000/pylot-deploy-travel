@@ -1,8 +1,40 @@
 <html>
   <head>
-    <link rel="stylesheet" href="/static/css/styles.css" type="text/css">
+     <meta charset="UTF-8">
+    <title>Login and Registration</title>
+        <link rel="stylesheet" href="/static/css/styles.css" type="text/css">
   </head>
   <body>
-    The best place to start is the "WelcomeController.py" file in app/controllers.
+  <!-- {{ s_allcourse }} -->
+  	<div id = "container">
+  		<div id = "top">
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        {% for category,message in messages %}
+          <p class="{{ category }}">{{message}}</p>
+        {% endfor %}
+      {% endif %}
+    {% endwith %}
+
+  		<form action="/loginreg/add" method="post">
+<br>First Name: <input type="text" name="f_first_name">
+<br>Last Name: <input type="text" name="f_last_name">
+<br>Email: <input type="text" name="f_email">
+<br>Password:<input type="password" name="f_password">
+<br>Confirm PW: <input type="password" name="f_pw_confirmation">
+<br><br><input type="submit" value="Register">
+
+		</form>
+		</div>
+		<div id="bottom">
+		<form action="/loginreg/login" method="post">
+
+		<br>Login: <input type="text" name="f_login">
+		<br>Password:<input type="password" name="f_password">
+		<br><br><input type="submit" value="Login">
+		</form>
+		</div>
+	</div>
   </body>
 </html>
