@@ -9,11 +9,11 @@
 """
 from system.core.model import Model
 
-from flask import Flask, request, redirect, render_template, session, flash
-import re
-import os,binascii
-EMAIL_REGEX = re.compile(r'^[a-zA-Z0-9\.\+_-]+@[a-zA-Z0-9\._-]+\.[a-zA-Z]*$')
-NAME_REGEX = re.compile(r'^[a-zA-Z]+$')
+# from flask import Flask, request, redirect, render_template, session, flash
+# import re
+# import os,binascii
+# EMAIL_REGEX = re.compile(r'^[a-zA-Z0-9\.\+_-]+@[a-zA-Z0-9\._-]+\.[a-zA-Z]*$')
+# NAME_REGEX = re.compile(r'^[a-zA-Z]+$')
 
 class LoginregModel(Model):
     def __init__(self):
@@ -46,33 +46,6 @@ class LoginregModel(Model):
     """
 
     def add_one_user_m(self, new_user_details):
-        print "YYYYYYYYYYYYY", new_user_details['f_email']
-        if len(new_user_details['f_email']) < 1:
-            flash("Email cannot be empty!",'error')
-            return redirect('/')
-        elif not EMAIL_REGEX.match(new_user_details['f_email']):
-            flash("Invalid Email Address!",'error')
-            return redirect('/')
-        elif len(new_user_details['f_first_name']) < 2:
-            flash("First name must be at least 2 letters long",'error')
-            return redirect('/')
-        elif not NAME_REGEX.match(new_user_details['f_first_name']):
-            flash("First name should have letters only",'error')
-            return redirect('/')
-        elif len(new_user_details['f_last_name']) < 2:
-            flash("Last name must be at least 2 letters long",'error')
-            return redirect('/')
-        elif not NAME_REGEX.match(new_user_details['f_last_name']):
-            flash("Last name should have letters only",'error')
-            return redirect('/')
-        elif len(new_user_details['f_password']) < 9:
-            flash("Password must be at least 8 characters long",'error')
-            return redirect('/')
-        elif new_user_details['f_password'] != new_user_details['f_pw_confirmation']:
-            flash("Passwords must match!",'error')
-            return redirect('/')
-        else:
-            print "successful registration"    
             password = new_user_details['f_password']
             hashed_pw = self.bcrypt.generate_password_hash(password)
             add_query = "INSERT INTO users (first_name, last_name, email, pw_hash, created_at, updated_at) \
@@ -83,25 +56,17 @@ class LoginregModel(Model):
             'spec_email': new_user_details['f_email'],
             'spec_pw_hash': hashed_pw
             }
-            # self.db.query_db(add_query, add_data)
             self.db.query_db(add_query, add_data)
-            return new_user_details['f_first_name']
-
-    # def success_m(self,new_reg_id):
-    #     query = "SELECT * from users WHERE id= :spec_id"
-    #     data = { 'spec_id': new_reg_id }
-    #     return self.db.query_db(query, data)
+            self.db.query_db(add_query, add_data)
+            return self.db.query_db(add_query, add_data)
 
     def login_m(self, new_user_details):
         query = "SELECT * from users where email = :spec_email LIMIT 1"
         data = {'spec_email': new_user_details['f_login']}
         user = self.db.query_db(query, data)
-        print "ZZZZZZZZZ", user
         if user[0]:
-           # check_password_hash() compares encrypted password in DB to one provided by user logging in
             if self.bcrypt.check_password_hash(user[0]['pw_hash'], new_user_details['f_password']):
                 return user[0]
-        # Whether we did not find the email, or if the password did not match, either way return False
         return False
 
 

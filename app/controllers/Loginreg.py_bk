@@ -7,11 +7,6 @@
     Create a controller using this template
 """
 from system.core.controller import *
-from flask import Flask, request, redirect, render_template, session, flash
-import re
-import os,binascii
-EMAIL_REGEX = re.compile(r'^[a-zA-Z0-9\.\+_-]+@[a-zA-Z0-9\._-]+\.[a-zA-Z]*$')
-NAME_REGEX = re.compile(r'^[a-zA-Z]+$')
 
 class Loginreg(Controller):
     def __init__(self, action):
@@ -51,28 +46,26 @@ class Loginreg(Controller):
     def add(self):
         # print "REQUEST.FORM IS", request.form
         user_details = request.form
-        valid=True
-        if (len(user_details['f_email']) < 1) or (not EMAIL_REGEX.match(user_details['f_email'])):
-            valid=False
-            flash("Invalid Email Address!",'error')
-        if (len(user_details['f_first_name']) < 2) or (not str(user_details['f_first_name']).isalpha()):
-            valid=False
-            flash("Invalid first name!",'error')
-        if (len(user_details['f_first_name']) < 2) or (not str(user_details['f_last_name']).isalpha()):
-            valid=False
-            flash("Invalid last name!",'error')
-        if len(user_details['f_password']) < 8: 
-            valid=False
-            flash("Sorry, your password is less than 8 characters",'error')
-        if user_details['f_password'] != user_details['f_pw_confirmation']:
-            valid=False
-            flash("Passwords must match!",'error')
-        if valid==False:
-            return redirect('/')
-        else:
-            self.models['LoginregModel'].add_one_user_m(user_details)
-            message = "registered and logged in!"
-            return self.load_view('success.html', s_f_name=user_details['f_first_name'], s_msg=message)
+        reg_name = self.models['LoginregModel'].add_one_user_m(user_details)
+        print "FFFFFFFFF", reg_name
+        message = "registered and logged in!"
+        return self.load_view('success.html', s_f_name=reg_name, s_msg=message)
+
+    # def success(self):
+    #     if session['reg_id']:
+    #         user = self.models['LoginregModel'].success_m(session['reg_id'])
+    #         print "XXXXXX", user
+    #         user_f_name = user[0]['first_name']
+    #         print "User First name is", user_f_name
+    #         message = "registered!"
+    #         return self.load_view('success.html', s_f_name=user_f_name, s_msg=message)
+    #     elif session['login_id']:
+    #         user = self.models['LoginregModel'].success_m(session['login_id'])
+    #         print "BBBBBBB", user
+    #         user_f_name = user[0]['first_name']
+    #         print "User First name is", user_f_name
+    #         message = "logged in!"
+    #         return self.load_view('success.html', s_f_name=user_f_name, s_msg=message)
 
     def login(self):
         user_details = request.form
@@ -81,8 +74,8 @@ class Loginreg(Controller):
             flash("Wrong Password!",'error')
             return redirect('/')
         else:
+            print "AAAAAAAAA", login_user
             session['login_id'] = login_user['id']
-            flash("Success!",'success')
             message = "logged in!"
             return self.load_view('success.html', s_f_name=login_user['first_name'], s_msg=message)
     

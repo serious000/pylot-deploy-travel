@@ -4,8 +4,9 @@
  
 #container {
 	margin: 0 auto;
-	width:500px;
+	width: 600px;
 	height: auto;
+    /*background-color: green;*/
 	/*border:solid;*/
     }
 
@@ -22,23 +23,16 @@
     	padding-top: 50px;
     	/*border:solid;*/
     }
-    th{
-    	padding: 10px;
-    }
-    td{
-    	padding: 10px;
-    	text-align: center;
-    	font-size:13px;
-    }
+
 .error {
-	background-color: red;
+	color: red;
 	color: white;
 	width: 400px;
 	padding: 10px;
 }
 
 .success {
-	background-color: green;
+	color: green;
 	color: white;
 	width: 400px;
 	padding: 10px;
