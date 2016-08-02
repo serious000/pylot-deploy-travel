@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en">
+  <head>
+     <meta charset="UTF-8">
+    <title>Add Trip Page</title>
+        <link rel="stylesheet" href="/static/css/addtravel.css" type="text/css">
+  </head>
+  <body>
+  	<div id = "container">
+    <header>
+          <a href="/logout">Logout</a>
+
+    <!-- <h2>Add a trip</h2> -->
+    </header>
+    <div id="left">
+    <h4>Add a Trip</h4>
+  		<form action="/travels/add_one" method="post">
+        <br>Destination: <input type="text" name="f_dest">
+        <br>Description: <input type="text" name="f_desc">
+        <br>Travel Date From: <input type="date" name="f_start_date">
+        <br>Travel Date To: <input type="date" name="f_end_date">
+        <br><br><input type="submit" value="Add">
+		</form>
+		</div> <!-- End div left -->
+
+	
+	</div> <!-- End div container -->
+  </body>
+</html>

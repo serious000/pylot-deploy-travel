@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="en">
+  <head>
+     <meta charset="UTF-8">
+    <title>Destination Page</title>
+        <link rel="stylesheet" href="/static/css/destination.css" type="text/css">
+  </head>
+  <body>
+  	<div id = "container">
+    <header>
+          <a href="/logout">Logout</a>
+<!-- <p>{{ t_info }} -->
+    <!-- <h2>Add a trip</h2> -->
+    </header>
+    <div id="left">
+    <h4>{{t_info[0]['destination']}}</h4>
+    <p>  Planned By: {{t_info[0]['planner']}} </p>
+    <p>  Description: {{t_info[0]['description']}} </p>
+    <p>  Travel Date From: {{t_info[0]['start_date']}} </p>
+    <p>  Travel Date To: {{t_info[0]['end_date']}} </p>
+		</div> <!-- End div left -->
+
+	
+	</div> <!-- End div container -->
+  </body>
+</html>

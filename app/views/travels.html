@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+  <head>
+      <title>Travels Page</title>
+        <link rel="stylesheet" href="/static/css/travels.css">
+  </head>
+  <body>
+  	<div id = "container">
+  	<header>
+  		<h2> Hello {{ session['name'] }}</h2>
+  		<a href="/logout">Logout</a>
+
+  	</header>
+  		<div id = "top">
+<p>your trip schedule:</p>
+				<table>
+					<thead>
+						<tr>
+							<th>Destination</th>	
+							<th>Travel Start Date</th>	
+							<th>Travel End Date</th>			
+							<th>Plan</th>	
+						</tr>
+					</thead>
+					<tbody>
+					{% for your_trip in info[0] %}
+					<tr>
+					
+						<td> {{ your_trip['destination'] }} </td>
+						<td> {{ your_trip['start_date'] }} </td>
+						<td> {{your_trip['end_date']}} </td>
+						<td> {{ your_trip['description'] }} </td>
+						
+					</tr>
+					{% endfor %}
+					</tbody>
+				</table>
+
+
+
+
+		</div>
+
+			<div id="bottom">
+						<p> Other Users Travel Plans: </p>
+				<table>
+					<thead>
+						<tr>
+							<th>Name</th>
+							<th>Destination</th>		
+							<th>Travel Start Date</th>	
+							<th>Travel End Date</th>			
+							<th>Do You Want to Join?</th>	
+						</tr>
+					</thead>
+					<tbody>
+					{% for other_trip in info[1] %}
+					<tr>
+						<td> {{ other_trip['name'] }} </td>
+						<td><a href="/travels/destination/{{other_trip['trip_id']}}"> {{ other_trip['destination'] }} </td>
+						<td> {{ other_trip['start_date'] }} </td>
+						<td> {{other_trip['end_date']}} </td>
+						<td><a href="">Join</a></td>
+					</tr>
+					{% endfor %}
+					</tbody>
+				</table>
+
+				<br><br><a id="addtext" href="/travels/add">Add Travel Plan</a>
+			</div>
+		</div>
+  </body>
+</html>

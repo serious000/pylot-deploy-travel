@@ -14,6 +14,9 @@ header {
     width: 700px;
     height: auto;
 }
+header a {
+	margin-left: 500px;
+}
 
 #left {
 	margin-top: 40px;

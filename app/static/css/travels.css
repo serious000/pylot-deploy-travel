@@ -15,6 +15,13 @@ header {
     height: auto;
 }
 
+#bottom a {
+	margin-left: 500px;
+}
+#addtext {
+	margin-left: 500px;
+}
+
 #left {
 	margin-top: 40px;
 	padding-top: 50px;

@@ -3,16 +3,20 @@
 <head>
      <meta charset="UTF-8">
 	<title>Success Page</title>
+    <link rel="stylesheet" href="/static/css/success.css" type="text/css">
 </head>
+
 <body>
+	<div id = "container">
+		<div id="top">
+			<!-- <a href="/logout"><button type="button ">Logout</button></a> -->
+			<a href="/logout">Logout</a>
+			<h2>Success! Welcome {{ session['name'] }}</h2>
+			<br>
+			<p>Successfully {{ s_msg }}</p>
+			<br>
 
-<h2>Success! Welcome {{ s_f_name }}</h2>
-<br>
-<br>
-<p>Successfully {{ s_msg }}</p>
-<br>
-<br>
-<a href="/loginreg/logout"><button type="button ">Logout</button></a>
-
+		</div> <!-- End div top -->
+	</div> <!-- End div container -->
 </body>
 </html>
